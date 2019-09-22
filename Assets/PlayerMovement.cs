@@ -26,5 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
         transform.position += forward * walkingSpeed * Movement.y * Time.deltaTime;
         transform.position += right * walkingSpeed * Movement.x * Time.deltaTime;
+
+
     }
 }
