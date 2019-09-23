@@ -365,6 +365,8 @@ public class OVRGrabber : MonoBehaviour
         if (!m_grabVolumeEnabled)
         {
             m_grabCandidates.Clear();
+            //Hello
+
         }
     }
 
