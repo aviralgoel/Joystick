@@ -315,8 +315,10 @@ public class OVRGrabber : MonoBehaviour
         else
         {
             //grabbedRigidbody.MovePosition(grabbablePosition);
-            grabbedRigidbody.transform.rotation = grabbableRotation;
-            print("Else" + grabbableRotation);
+            Vector3 myRotation = grabbableRotation.eulerAngles;
+            grabbedRigidbody.transform.eulerAngles = new Vector3(grabbableRotation.eulerAngles.x, 0, 0);
+            //grabbedRigidbody.transform.rotation = grabbableRotation;
+            print("Else" + myRotation);
         }
     }
 
