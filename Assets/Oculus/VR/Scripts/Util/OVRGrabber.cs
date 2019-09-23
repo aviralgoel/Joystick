@@ -310,11 +310,13 @@ public class OVRGrabber : MonoBehaviour
         {
             //grabbedRigidbody.transform.position = grabbablePosition;
             grabbedRigidbody.transform.rotation = grabbableRotation;
+            print("Teleport" + grabbableRotation);
         }
         else
         {
             //grabbedRigidbody.MovePosition(grabbablePosition);
-            grabbedRigidbody.MoveRotation(grabbableRotation);
+            grabbedRigidbody.transform.rotation = grabbableRotation;
+            print("Else" + grabbableRotation);
         }
     }
 
