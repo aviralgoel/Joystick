@@ -202,6 +202,9 @@ public class OVRGrabber : MonoBehaviour
         }
         else if ((m_prevFlex <= grabEnd) && (prevFlex > grabEnd))
         {
+
+
+            grabbedObject.transform.localRotation = new Quaternion(0, 0, 0, 1);
             GrabEnd();
         }
     }
@@ -309,16 +312,33 @@ public class OVRGrabber : MonoBehaviour
         if (forceTeleport)
         {
             //grabbedRigidbody.transform.position = grabbablePosition;
-            grabbedRigidbody.transform.rotation = grabbableRotation;
-            print("Teleport" + grabbableRotation);
+            //grabbedRigidbody.transform.rotation = grabbableRotation;
+            grabbedRigidbody.transform.eulerAngles = new Vector3(grabbableRotation.eulerAngles.x, 0, grabbableRotation.eulerAngles.z);
+
         }
         else
         {
-            //grabbedRigidbody.MovePosition(grabbablePosition);
-            Vector3 myRotation = grabbableRotation.eulerAngles;
-            grabbedRigidbody.transform.eulerAngles = new Vector3(grabbableRotation.eulerAngles.x, 0, 0);
-            //grabbedRigidbody.transform.rotation = grabbableRotation;
-            print("Else" + myRotation);
+           if(grabbedObject.transform.tag == "Joystick Green")
+            {
+                //grabbedRigidbody.MovePosition(grabbablePosition);
+
+                grabbedRigidbody.transform.eulerAngles = new Vector3(grabbableRotation.eulerAngles.x, 0, grabbableRotation.eulerAngles.z);
+                print("Grabbed Green");
+               // grabbedRigidbody.transform.rotation = grabbableRotation;
+
+            }
+            else if (grabbedObject.transform.tag == "Joystick Yellow")
+            {
+                //grabbedRigidbody.MovePosition(grabbablePosition);
+
+                    grabbedRigidbody.transform.eulerAngles = new Vector3(grabbableRotation.eulerAngles.x, 0, 0);
+                   print("Grabbed Yellow");
+                ////    //grabbedRigidbody.transform.rotation = grabbableRotation;
+                //////
+                //}
+            }
+                else
+                { grabbedRigidbody.transform.eulerAngles = new Vector3(grabbableRotation.eulerAngles.x, 0, grabbableRotation.eulerAngles.z); }
         }
     }
 
@@ -335,6 +355,7 @@ public class OVRGrabber : MonoBehaviour
 			Vector3 angularVelocity = trackingSpace.orientation * OVRInput.GetLocalControllerAngularVelocity(m_controller);
 
             GrabbableRelease(linearVelocity, angularVelocity);
+
         }
 
         // Re-enable grab volumes to allow overlap events
