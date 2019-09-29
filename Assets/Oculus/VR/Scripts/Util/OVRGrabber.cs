@@ -26,6 +26,11 @@ public class OVRGrabber : MonoBehaviour
     // Grip trigger thresholds for picking up objects, with some hysteresis.
     public float grabBegin = 0.55f;
     public float grabEnd = 0.35f;
+    public GameObject Container;
+    public float speed = .01f;
+    public float Ydirection = 0;
+    public float Xdirection = 0;
+    public float Zdirection = 0;
 
     // Demonstrates parenting the held object to the hand's transform when grabbed.
     // When false, the grabbed object is moved every FixedUpdate using MovePosition.
@@ -322,17 +327,51 @@ public class OVRGrabber : MonoBehaviour
             {
                 //grabbedRigidbody.MovePosition(grabbablePosition);
 
-                grabbedRigidbody.transform.eulerAngles = new Vector3(grabbableRotation.eulerAngles.x, 0, grabbableRotation.eulerAngles.z);
+                grabbedRigidbody.transform.eulerAngles = new Vector3(transform.position.z * 90f - 160, 0, -transform.position.x * 90f + 165);
                 print("Grabbed Green");
-               // grabbedRigidbody.transform.rotation = grabbableRotation;
+                if (grabbedRigidbody.transform.eulerAngles.x < 45 && grabbedRigidbody.transform.eulerAngles.x > 0)
+                {
+                    Zdirection = 1;
+                    Container.transform.position += new Vector3( 0, 0, Zdirection * speed);
+
+                }
+                if (grabbedRigidbody.transform.eulerAngles.x < 360 && grabbedRigidbody.transform.eulerAngles.x > 320)
+                {
+                    Zdirection = -1;
+                    Container.transform.position += new Vector3( 0, 0, Zdirection * speed);
+                }
+                if (grabbedRigidbody.transform.eulerAngles.z < 45 && grabbedRigidbody.transform.eulerAngles.z > 0)
+                {
+                    Xdirection = -1;
+                    Container.transform.position += new Vector3(Xdirection * speed, 0, 0);
+
+                }
+                if (grabbedRigidbody.transform.eulerAngles.z < 360 && grabbedRigidbody.transform.eulerAngles.z > 320)
+                {
+                    Xdirection = 1;
+                    Container.transform.position += new Vector3(Xdirection * speed, 0 ,0);
+                }
+                // grabbedRigidbody.transform.rotation = grabbableRotation;
 
             }
             else if (grabbedObject.transform.tag == "Joystick Yellow")
             {
                 //grabbedRigidbody.MovePosition(grabbablePosition);
 
-                    grabbedRigidbody.transform.eulerAngles = new Vector3(grabbableRotation.eulerAngles.x, 0, 0);
-                   print("Grabbed Yellow");
+                    grabbedRigidbody.transform.eulerAngles = new Vector3(transform.position.z* 90f - 165, 0, 0);
+                //print(grabbedRigidbody.transform.eulerAngles);
+                if(grabbedRigidbody.transform.eulerAngles.x < 45 && grabbedRigidbody.transform.eulerAngles.x >0)
+                {
+                    Ydirection = 1;
+                    Container.transform.position += new Vector3(0, Ydirection * speed, 0);
+
+                }
+                if(grabbedRigidbody.transform.eulerAngles.x  < 360   && grabbedRigidbody.transform.eulerAngles.x > 320)
+                {
+                    Ydirection = -1;
+                    Container.transform.position += new Vector3(0, Ydirection * speed, 0);
+                }
+                print("Grabbed Yellow");
                 ////    //grabbedRigidbody.transform.rotation = grabbableRotation;
                 //////
                 //}

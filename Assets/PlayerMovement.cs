@@ -65,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     {
         joystickMovement = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
 
+
         redJoystick.transform.Rotate(new Vector3(joystickMovement.y * rotateSpeed, 0, -joystickMovement.x * rotateSpeed));
 
 

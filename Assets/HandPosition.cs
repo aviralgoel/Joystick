@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RedJoystick : MonoBehaviour
+public class HandPosition : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -17,13 +17,11 @@ public class RedJoystick : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        print("We Touch Somethng");
-        if (other.gameObject.tag == "Hand")
-        {
-            PlayerMovement.Instance.MoveRedJoystick();
-            print("We Touch Hand");
-            
-            other.transform.position = transform.position;
-        }
+        transform.position = other.transform.position;
+        transform.rotation = other.transform.rotation;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        transform.position = Vector3.zero;
     }
 }
